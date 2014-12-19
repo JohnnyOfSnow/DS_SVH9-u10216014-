@@ -33,15 +33,34 @@
 		<form name = "hashForm" id="hashForm" >
 			<table>
 			<tr>
-				<td><p>1.設定模式:</p></td>  <td><input type="radio" name="modeChoice1" value="模擬模式">模擬模式</td>  <td><input type="radio" name="modeChoice1" value="測驗模式">測驗模式   </td><td><input type = "button"  value = "確認" onClick = "modeChoice();"></td><td><p id="mode"></p></td>
+				<td><p>1.設定模式:</p></td>  <td><input type="radio" name="modeChoice1" value="模擬模式">模擬模式</td>  <td><input type="radio" name="modeChoice1" value="測驗模式">測驗模式   </td><td><input type = "button"  value = "確認" onClick = "modeChoice();"></td>
+				<td><input type = "button"  value = "清除" onClick = "modeClear();"></td><td><p id="mode"></p></td>
 			</tr>
 			<tr>
-				<td><p>2.設定:Collision解決方式</p></td>  <td><input type="radio" name="collision1" value="linear probe">linear probe</td>  <td><input type="radio" name="collision1" value="double hash">double hash   </td><td><input type = "button"  value = "確認" onClick = "collisionChoice();"></td><td><p id="collision"></p></td>
+				<td><p>2.設定:Collision解決方式</p></td>  <td><input type="radio" name="collision1" value="linear probe">linear probe</td>  <td><input type="radio" name="collision1" value="double hash">double hash   </td><td><input type = "button"  value = "確認" onClick = "collisionChoice();"></td>
+				<td><input type = "button"  value = "清除" onClick = "collisionClear();"></td><td><p id="collision"></p></td>
 			</tr>
+			</table>
+			<table>
+				<tr>
+					<td>請輸入資料：</td> <td><input type=text value="" id=dataText size="30"></td>
+					<td><input type = "button"  value = "確定" onClick = "fillData()"></td>
+					<td><input type = "button"  value = "隨機產生" onClick = "fillData1()"></td>
+					<td><input type = "button"  value = "清除資料" onClick = "deleteData()"></td>
+				</tr>
+			</table>
+			<table>
+				<tr>	
+					<td><p id="data"></p></td>
+				</tr>
 			</table>
 		</form>
 		
 		<script>
+			var mode = -1;
+			var collision = -1;
+			var data = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+
 			function modeChoice(){
 				var form = document.getElementById("hashForm");
 				var result = document.getElementById("mode");
@@ -49,21 +68,74 @@
 				for (var i = 0; i < form.modeChoice1.length; i++) {
 					if ( form.modeChoice1[i].checked ) {
 						result.innerHTML = "you selected " + form.modeChoice1[i].value;
+						mode = i;
 						break;
 					}
 				}
 			}
+			
 			function collisionChoice(){
 				var form = document.getElementById("hashForm");
 				var result = document.getElementById("collision");
 			
 				for (var i = 0; i < form.collision1.length; i++) {
 					if ( form.collision1[i].checked ) {
+						collision = i;
 						result.innerHTML = "you selected " + form.collision1[i].value;
 						break;
 					}
 				}
 			}
+			
+			function modeClear(){
+				var form = document.getElementById("hashForm");
+				var result = document.getElementById("mode");
+				for (var i = 0; i < form.modeChoice1.length; i++) {
+					form.modeChoice1[i].checked = false;
+				}
+				result.innerHTML = "";
+				mode = -1;
+			}
+			
+			function collisionClear(){
+				var form = document.getElementById("hashForm");
+				var result = document.getElementById("collision");
+				for (var i = 0; i < form.collision1.length; i++) {
+					form.collision1[i].checked = false;
+				}
+				result.innerHTML = "";
+				collision = -1;
+			}
+			
+			function fillData1(){
+				var result = document.getElementById("data");
+				var dataString = "";
+				if(mode != -1 && collision != -1){
+					var amount = 12;
+					var count = 0;
+					while(count <= amount){
+						var n1 = Math.floor(Math.random()*1000);
+						data[count] = n1;
+						dataString = dataString + data[count] + ",";
+						count = count + 1;
+					}
+					result.innerHTML =  "資料為" + dataString;	
+				}else{
+					result.innerHTML = "你沒有選擇模式或是Collision解決方式";
+				}
+			}
+			
+			function deleteData(){
+				var result = document.getElementById("data");
+				var amount = 12;
+				var count = 0;
+				while(count <= amount){
+					data[count] = -1;
+					count = count + 1;
+				}
+				result.innerHTML = "";
+			}
+			
 		</script>
 
 	</body>
