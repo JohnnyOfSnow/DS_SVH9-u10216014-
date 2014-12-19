@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+	</head>
+	
+	<body>
+		<table>
+			<tr>
+				<td><p>這是一個模擬Hash Table的程式</p></td>
+			</tr>
+			<tr>
+				<td><p>你需先按下，模擬模式，或是測驗模式</p></td>
+			</tr>
+			<tr>
+				<td><p>接著，你需再按下建Hash Table時Collision要用linear probe或是double hash</p></td>
+			</tr>
+			<tr>
+				<td><p>1.在模擬模式下，你可以自行輸入要放入Hash Table的資料</p></td>
+			</tr>
+			<tr>
+				<td><p>然後可以按，下一步(一次做一步)，一次做完，全部清除(需再從上面重新設定)</p></td>
+			</tr>
+			<tr>
+				<td><p>2.在測驗模式下，請設定完上面之後，按下開始出題，根據隨機產生的資料</p></td>
+			</tr>
+			<tr>
+				<td><p>按照建Hash Table的方式，將答案填入格子中，之後按下確認答案。錯的格子將會以黃色背景顯示。</p></td>
+			</tr>
+		</table>
+		<hr>
+		<hr>
+		<form name = "hashForm" id="hashForm" >
+			<table>
+			<tr>
+				<td><p>1.設定模式:</p></td>  <td><input type="radio" name="modeChoice1" value="模擬模式">模擬模式</td>  <td><input type="radio" name="modeChoice1" value="測驗模式">測驗模式   </td><td><input type = "button"  value = "確認" onClick = "modeChoice();"></td><td><p id="mode"></p></td>
+			</tr>
+			<tr>
+				<td><p>2.設定:Collision解決方式</p></td>  <td><input type="radio" name="collision1" value="linear probe">linear probe</td>  <td><input type="radio" name="collision1" value="double hash">double hash   </td><td><input type = "button"  value = "確認" onClick = "collisionChoice();"></td><td><p id="collision"></p></td>
+			</tr>
+			</table>
+		</form>
+		
+		<script>
+			function modeChoice(){
+				var form = document.getElementById("hashForm");
+				var result = document.getElementById("mode");
+			
+				for (var i = 0; i < form.modeChoice1.length; i++) {
+					if ( form.modeChoice1[i].checked ) {
+						result.innerHTML = "you selected " + form.modeChoice1[i].value;
+						break;
+					}
+				}
+			}
+			function collisionChoice(){
+				var form = document.getElementById("hashForm");
+				var result = document.getElementById("collision");
+			
+				for (var i = 0; i < form.collision1.length; i++) {
+					if ( form.collision1[i].checked ) {
+						result.innerHTML = "you selected " + form.collision1[i].value;
+						break;
+					}
+				}
+			}
+		</script>
+
+	</body>
+	
+</html>
