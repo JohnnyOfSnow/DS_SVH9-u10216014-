@@ -16,10 +16,10 @@
 				<td><p>接著，你需再按下建Hash Table時Collision要用linear probe或是double hash</p></td>
 			</tr>
 			<tr>
-				<td><p>1.在模擬模式下，你可以自行輸入要放入Hash Table的資料</p></td>
+				<td><p>1.在模擬模式下，你可以自行輸入要放入Hash Table的資料，或是按下隨機產生</p></td>
 			</tr>
 			<tr>
-				<td><p>然後可以按，下一步(一次做一步)，一次做完，全部清除(需再從上面重新設定)</p></td>
+				<td><p>然後可以按下一步(一次做一步)，一次做完，全部清除(需再從上面重新設定)</p></td>
 			</tr>
 			<tr>
 				<td><p>2.在測驗模式下，請設定完上面之後，按下開始出題，根據隨機產生的資料</p></td>
@@ -60,6 +60,8 @@
 			var mode = -1;
 			var collision = -1;
 			var data = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+			var spitData = new Array();
+			var fillLocation = 0;
 
 			function modeChoice(){
 				var form = document.getElementById("hashForm");
@@ -113,13 +115,72 @@
 				if(mode != -1 && collision != -1){
 					var amount = 12;
 					var count = 0;
-					while(count <= amount){
+					while(fillLocation <= amount){
 						var n1 = Math.floor(Math.random()*1000);
-						data[count] = n1;
-						dataString = dataString + data[count] + ",";
-						count = count + 1;
+						data[fillLocation] = n1;
+						fillLocation = fillLocation + 1;
 					}
-					result.innerHTML =  "資料為" + dataString;	
+					var display = 0;
+					var dataString1 = "";
+					while(display < data.length){
+						if(data[display] != -1){
+							dataString1 = dataString1 + data[display] + ",";
+							display = display + 1;
+						}else{
+							break;
+						}						
+					}
+					result.innerHTML =  "資料為" + dataString1;	
+					document.getElementById("dataText").value = "";	
+					fillLocation = 13;
+				}else{
+					result.innerHTML = "你沒有選擇模式或是Collision解決方式";
+				}
+			}
+			
+			function fillData(){
+				var dataString = document.getElementById("dataText").value;
+				var result = document.getElementById("data");
+				spitData = dataString.split(",");
+				var amount = spitData.length;
+				var innerLocation = 0;
+				if(mode != -1 && collision != -1){
+					if(fillLocation < 13){
+						while(amount > 0){
+							data[fillLocation] = spitData[innerLocation];
+							innerLocation = innerLocation + 1;
+							fillLocation = fillLocation + 1;
+							amount = amount - 1;
+							if(fillLocation >= 13){
+								break;
+							}
+						}
+						var display = 0;
+						var dataString1 = "";
+						while(display < data.length){
+							if(data[display] != -1){
+								dataString1 = dataString1 + data[display] + ",";
+								display = display + 1;
+							}else{
+								break;
+							}						
+						}
+						result.innerHTML =  "資料為" + dataString1;	
+						document.getElementById("dataText").value = "";
+					}else{
+						var display = 0;
+						var dataString1 = "";
+						while(display < data.length){
+							if(data[display] != -1){
+								dataString1 = dataString1 + data[display] + ",";
+								display = display + 1;
+							}else{
+								break;
+							}						
+						}
+						result.innerHTML =  "資料為" + dataString1 + "資料超過容納的量，不可再加入";	
+						document.getElementById("dataText").value = "";
+					}
 				}else{
 					result.innerHTML = "你沒有選擇模式或是Collision解決方式";
 				}
@@ -127,6 +188,7 @@
 			
 			function deleteData(){
 				var result = document.getElementById("data");
+				document.getElementById("dataText").value = "";
 				var amount = 12;
 				var count = 0;
 				while(count <= amount){
@@ -134,6 +196,7 @@
 					count = count + 1;
 				}
 				result.innerHTML = "";
+				fillLocation = 0;
 			}
 			
 		</script>
