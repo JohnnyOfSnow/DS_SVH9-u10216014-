@@ -114,6 +114,15 @@
 			var linearString = "";
 			var putDataCount = 1;
 			var hashAmount = 0;
+			var doubleHashString1 = "\n現在將 ";
+			var doubleHashString2 = "除以13所得的餘數為 ";
+			var doubleHashString3 = " 這個位置是否已經有人呢?";
+			var doubleHashString4 = "\n沒人，所以 ";
+			var doubleHashString5 = "放在位置";
+			var doubleHashString6 = "\n有人，";
+			var doubleHashString7 = "\n資料全部放入了hash Table 用double hash的方式解決Collision";
+			var doubleHashString = "";
+			var collisionCount = 1;
 
 			function modeChoice(){
 				var form = document.getElementById("hashForm");
@@ -135,7 +144,12 @@
 				for (var i = 0; i < form.collision1.length; i++) {
 					if ( form.collision1[i].checked ) {
 						collision = i;
-						result.innerHTML = "you selected " + form.collision1[i].value;
+						if(form.collision1[1].checked){
+							result.innerHTML = "you selected " + form.collision1[i].value + " h1(k) = k mod 13  h2(k) = 1 + (k mod 11) 發生第i次碰撞時 h(k,i) = (h1(k) + i * h2(k)) mod 13";
+						}else{
+							result.innerHTML = "you selected " + form.collision1[i].value + " h(k) = k mod 13";
+						}
+						
 						break;
 					}
 				}
@@ -261,6 +275,7 @@
 			function next(){
 				calculateHashAmount();
 				if(mode == 0 && collision != -1){
+					// collision == 0 using linear probe
 					if(collision == 0 && hashDataCheck[hashLocation] != -1 && putDataCount <= hashAmount){
 						
 						if(hashStep == 0){
@@ -369,11 +384,12 @@
 							hashData[innerLocation1] = data[hashLocation];
 							hashLocation = hashLocation + 1;
 							innerLocation1 = 0;
-							putDataCount = putDataCount + 1;
+							
 
-							if(putDataCount > hashAmount){
+							if(putDataCount >= hashAmount){
 								hashStep = 4;
 							}
+							putDataCount = putDataCount + 1;
 							
 						}else if(hashStep == 3){
 							linearString = linearString + linearString6;
@@ -386,12 +402,143 @@
 								hashStep = 1;
 							}
 						}else if(hashStep == 4){
-							linearString = linearString + linearString7;
-							document.getElementById("hashTableArea").innerHTML = linearString;
+							
 							hashStep = 5;
 						}else{
 
 						}
+					// collision == 1 using double hash
+					}else if(collision == 1 && hashDataCheck[hashLocation] != -1 && putDataCount <= hashAmount){
+						if(hashStep == 0){
+							innerLocation1 = data[hashLocation] % 13;
+							doubleHashString = doubleHashString + doubleHashString1 + data[hashLocation] + doubleHashString2 + innerLocation1;
+							document.getElementById("hashTableArea").innerHTML = doubleHashString;
+							hashStep = 1;
+						}else if(hashStep == 1){
+
+							doubleHashString = doubleHashString + "\n" + innerLocation1 + doubleHashString3;
+							document.getElementById("hashTableArea").innerHTML = doubleHashString;
+							colorWhite();
+							if(innerLocation1 == 0){
+								
+								document.getElementById("1").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 1){
+								
+								document.getElementById("2").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 2){
+								
+								document.getElementById("3").style.backgroundColor = "#f63";	
+							}else if(innerLocation1 == 3){
+								
+								document.getElementById("4").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 4){
+								
+								document.getElementById("5").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 5){
+								
+								document.getElementById("6").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 6){
+								
+								document.getElementById("7").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 7){
+								
+								document.getElementById("8").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 8){
+								
+								document.getElementById("9").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 9){
+								
+								document.getElementById("10").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 10){
+								
+								document.getElementById("11").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 11){
+								
+								document.getElementById("12").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 12){
+								
+								document.getElementById("13").style.backgroundColor = "#f63";
+							}else{ 
+							}
+							if(hashData[innerLocation1] == -1){
+								hashStep = 2;
+							}else{
+								hashStep = 3;
+							}
+						}else if(hashStep == 2){
+							colorWhite();
+							collisionCount = 1;
+							doubleHashString = doubleHashString + doubleHashString4 + data[hashLocation] + doubleHashString5 + innerLocation1;
+							document.getElementById("hashTableArea").innerHTML = doubleHashString;
+							if(innerLocation1 == 0){
+								document.getElementById("1").value = data[hashLocation];
+								document.getElementById("1").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 1){
+								document.getElementById("2").value = data[hashLocation];
+								document.getElementById("2").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 2){
+								document.getElementById("3").value = data[hashLocation];
+								document.getElementById("3").style.backgroundColor = "#ff6";	
+							}else if(innerLocation1 == 3){
+								document.getElementById("4").value = data[hashLocation];
+								document.getElementById("4").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 4){
+								document.getElementById("5").value = data[hashLocation];
+								document.getElementById("5").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 5){
+								document.getElementById("6").value = data[hashLocation];
+								document.getElementById("6").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 6){
+								document.getElementById("7").value = data[hashLocation];
+								document.getElementById("7").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 7){
+								document.getElementById("8").value = data[hashLocation];
+								document.getElementById("8").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 8){
+								document.getElementById("9").value = data[hashLocation];
+								document.getElementById("9").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 9){
+								document.getElementById("10").value = data[hashLocation];
+								document.getElementById("10").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 10){
+								document.getElementById("11").value = data[hashLocation];
+								document.getElementById("11").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 11){
+								document.getElementById("12").value = data[hashLocation];
+								document.getElementById("12").style.backgroundColor = "#ff6";
+							}else if(innerLocation1 == 12){
+								document.getElementById("13").value = data[hashLocation];
+								document.getElementById("13").style.backgroundColor = "#ff6";
+							}else{ 
+
+							}
+							hashStep = 0;
+							hashData[innerLocation1] = data[hashLocation];
+							hashLocation = hashLocation + 1;
+							innerLocation1 = 0;
+							
+
+							if(putDataCount >= hashAmount){
+								hashStep = 4;
+							}
+							putDataCount = putDataCount + 1;
+							
+						}else if(hashStep == 3){
+							doubleHashString = doubleHashString + doubleHashString6 + " 為第" + collisionCount + "次碰撞\n進行H(" + data[hashLocation] + "," + collisionCount + ") = (h1(" + data[hashLocation] + ") + " + collisionCount + "* h2(" + data[hashLocation] + ")) % 13";
+							document.getElementById("hashTableArea").innerHTML = doubleHashString;
+
+							
+							innerLocation1 = ((data[hashLocation] % 13) + collisionCount * (1 + data[hashLocation] % 11)) %13
+							hashStep = 1;
+							collisionCount = collisionCount + 1;
+						}else if(hashStep == 4){
+							
+							hashStep = 5;
+						}else{
+
+						}
+
+
 					}
 				}
 			}
@@ -425,6 +572,8 @@
 				hashData = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
 				hashDataCheck = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
 				colorWhite();
+				collisionCount = 1;
+				doubleHashString = "";
 			}
 
 			function calculateHashAmount(){
@@ -452,8 +601,16 @@
 			}
 
 			function doAll(){
-				while(hashStep != 4){
-					next();
+				if(collision == 0){
+					while(hashStep != 4){
+						next();
+					}
+				}else if(collision == 1){
+					while(hashStep != 4){
+						next();
+					}
+				}else{
+
 				}
 			}
 			
