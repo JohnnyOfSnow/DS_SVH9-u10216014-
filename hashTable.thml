@@ -363,13 +363,18 @@
 								document.getElementById("13").value = data[hashLocation];
 								document.getElementById("13").style.backgroundColor = "#ff6";
 							}else{ 
+
 							}
-							
 							hashStep = 0;
 							hashData[innerLocation1] = data[hashLocation];
 							hashLocation = hashLocation + 1;
 							innerLocation1 = 0;
 							putDataCount = putDataCount + 1;
+
+							if(putDataCount > hashAmount){
+								hashStep = 4;
+							}
+							
 						}else if(hashStep == 3){
 							linearString = linearString + linearString6;
 							document.getElementById("hashTableArea").innerHTML = linearString;
@@ -382,6 +387,8 @@
 							}
 						}else if(hashStep == 4){
 							linearString = linearString + linearString7;
+							document.getElementById("hashTableArea").innerHTML = linearString;
+							hashStep = 5;
 						}else{
 
 						}
@@ -442,6 +449,12 @@
 				document.getElementById("11").style.backgroundColor = "#fff";
 				document.getElementById("12").style.backgroundColor = "#fff";
 				document.getElementById("13").style.backgroundColor = "#fff";
+			}
+
+			function doAll(){
+				while(hashStep != 4){
+					next();
+				}
 			}
 			
 		</script>
