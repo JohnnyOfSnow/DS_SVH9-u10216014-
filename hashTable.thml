@@ -272,45 +272,99 @@
 
 							linearString = linearString + "\n" + innerLocation1 + linearString3;
 							document.getElementById("hashTableArea").innerHTML = linearString;
+							colorWhite();
+							if(innerLocation1 == 0){
+								
+								document.getElementById("1").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 1){
+								
+								document.getElementById("2").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 2){
+								
+								document.getElementById("3").style.backgroundColor = "#f63";	
+							}else if(innerLocation1 == 3){
+								
+								document.getElementById("4").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 4){
+								
+								document.getElementById("5").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 5){
+								
+								document.getElementById("6").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 6){
+								
+								document.getElementById("7").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 7){
+								
+								document.getElementById("8").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 8){
+								
+								document.getElementById("9").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 9){
+								
+								document.getElementById("10").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 10){
+								
+								document.getElementById("11").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 11){
+								
+								document.getElementById("12").style.backgroundColor = "#f63";
+							}else if(innerLocation1 == 12){
+								
+								document.getElementById("13").style.backgroundColor = "#f63";
+							}else{ 
+							}
 							if(hashData[innerLocation1] == -1){
 								hashStep = 2;
 							}else{
 								hashStep = 3;
 							}
 						}else if(hashStep == 2){
+							colorWhite();
 							linearString = linearString + linearString4 + data[hashLocation] + linearString5 + innerLocation1;
 							document.getElementById("hashTableArea").innerHTML = linearString;
 							if(innerLocation1 == 0){
 								document.getElementById("1").value = data[hashLocation];
+								document.getElementById("1").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 1){
 								document.getElementById("2").value = data[hashLocation];
+								document.getElementById("2").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 2){
-								document.getElementById("3").value = data[hashLocation];	
+								document.getElementById("3").value = data[hashLocation];
+								document.getElementById("3").style.backgroundColor = "#ff6";	
 							}else if(innerLocation1 == 3){
 								document.getElementById("4").value = data[hashLocation];
+								document.getElementById("4").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 4){
 								document.getElementById("5").value = data[hashLocation];
+								document.getElementById("5").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 5){
 								document.getElementById("6").value = data[hashLocation];
+								document.getElementById("6").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 6){
 								document.getElementById("7").value = data[hashLocation];
+								document.getElementById("7").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 7){
 								document.getElementById("8").value = data[hashLocation];
+								document.getElementById("8").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 8){
 								document.getElementById("9").value = data[hashLocation];
+								document.getElementById("9").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 9){
 								document.getElementById("10").value = data[hashLocation];
+								document.getElementById("10").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 10){
 								document.getElementById("11").value = data[hashLocation];
+								document.getElementById("11").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 11){
 								document.getElementById("12").value = data[hashLocation];
+								document.getElementById("12").style.backgroundColor = "#ff6";
 							}else if(innerLocation1 == 12){
 								document.getElementById("13").value = data[hashLocation];
+								document.getElementById("13").style.backgroundColor = "#ff6";
 							}else{ 
 							}
-							if(putDataCount == 13){
-								hashStep = 4;
-							}
+							
 							hashStep = 0;
 							hashData[innerLocation1] = data[hashLocation];
 							hashLocation = hashLocation + 1;
@@ -360,14 +414,34 @@
 				hashAmount = 0;
 				fillLocation = 0;
 				hashLocation = 0;
+				data = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+				hashData = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+				hashDataCheck = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+				colorWhite();
 			}
 
 			function calculateHashAmount(){
 				var count = 0;
-				while(hashDataCheck[count] != -1){
+				while(hashDataCheck[count] != -1 && count <=12){
 					count = count + 1;
 				}
 				hashAmount = count;
+			}
+
+			function colorWhite(){
+				document.getElementById("1").style.backgroundColor = "#fff";
+				document.getElementById("2").style.backgroundColor = "#fff";
+				document.getElementById("3").style.backgroundColor = "#fff";
+				document.getElementById("4").style.backgroundColor = "#fff";
+				document.getElementById("5").style.backgroundColor = "#fff";
+				document.getElementById("6").style.backgroundColor = "#fff";
+				document.getElementById("7").style.backgroundColor = "#fff";
+				document.getElementById("8").style.backgroundColor = "#fff";
+				document.getElementById("9").style.backgroundColor = "#fff";
+				document.getElementById("10").style.backgroundColor = "#fff";
+				document.getElementById("11").style.backgroundColor = "#fff";
+				document.getElementById("12").style.backgroundColor = "#fff";
+				document.getElementById("13").style.backgroundColor = "#fff";
 			}
 			
 		</script>
