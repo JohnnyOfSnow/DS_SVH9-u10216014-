@@ -5,42 +5,33 @@
 	</head>
 	
 	<body>
-		<table>
-			<tr>
-				<td><p>這是一個模擬Hash Table的程式</p></td>
-			</tr>
-			<tr>
-				<td><p>你需先按下，模擬模式，或是測驗模式，接著，你需再按下建Hash Table時Collision要用linear probe或是double hash</p></td>
-			</tr>
-			
-			<tr>
-				<td><p>1.在模擬模式下，你可以自行輸入要放入Hash Table的資料，或是按下隨機產生，然後可以按下一步(一次做一步)，一次做完，全部清除(需再從上面重新設定)</p></td>
-			</tr>
-			
-			<tr>
-				<td><p>2.在測驗模式下，請先設定好解決Collision的方法，按下開始出題，根據隨機產生的資料，按照建Hash Table的方式，將答案填入格子中，之後按下確認答案。錯的格子將會以黃色背景顯示。</p></td>
-			</tr>
-			
-		</table>
-		<hr>
-		<hr>
+
+		
 		<form name = "hashForm" id="hashForm" >
 			<table>
 			<tr>
-				<td><p>1.設定模式:</p></td>  <td><input type="radio" name="modeChoice1" value="模擬模式">模擬模式</td>  <td><input type="radio" name="modeChoice1" value="測驗模式">測驗模式   </td><td><input type = "button"  value = "確認" onClick = "modeChoice();"></td>
+				<td><p id = "instruction"></p></td>
+			</tr>
+			
+			</table>
+			<hr>
+			<hr>
+			<table>
+			<tr>
+				<td><p>1.設定模式:</p></td>  <td><input type="radio" name="modeChoice1" value="模擬模式" onClick = "modeChoice();">模擬模式</td>  <td><input type="radio" name="modeChoice1" value="測驗模式" onClick = "modeChoice();">測驗模式   </td>
 				<td><input type = "button"  value = "清除" onClick = "modeClear();"></td><td><p id="mode"></p></td>
 			</tr>
 			<tr>
-				<td><p>2.設定:Collision解決方式</p></td>  <td><input type="radio" name="collision1" value="linear probe">linear probe</td>  <td><input type="radio" name="collision1" value="double hash">double hash   </td><td><input type = "button"  value = "確認" onClick = "collisionChoice();"></td>
+				<td><p>2.設定:Collision解決方式</p></td>  <td><input type="radio" name="collision1" value="linear probe" onClick = "collisionChoice();">linear probe</td>  <td><input type="radio" name="collision1" value="double hash" onClick = "collisionChoice();">double hash   </td>
 				<td><input type = "button"  value = "清除" onClick = "collisionClear();"></td><td><p id="collision"></p></td>
 			</tr>
 			</table>
 			<table>
 				<tr>
 					<td>請輸入資料：</td> <td><input type=text value="" id=dataText size="30"></td>
-					<td><input type = "button"  value = "確定" onClick = "fillData()"></td>
-					<td><input type = "button"  value = "隨機產生" onClick = "fillData1()"></td>
-					<td><input type = "button"  value = "清除資料" onClick = "deleteData()"></td>
+					<td><input type = "button"  value = "確定" onClick = "fillData()" id = "enterCheck"></td>
+					<td><input type = "button"  value = "隨機產生" onClick = "fillData1()" id = "randomGenerate"></td>
+					<td><input type = "button"  value = "清除資料" onClick = "deleteData()" id = "clearData"></td>
 				</tr>
 			</table>
 			<table>
@@ -54,6 +45,21 @@
 				</tr>
 			</table>
 			<table>
+				<tr>	
+					<td><p>0</p></td>
+					<td><p>1</p></td>
+					<td><p>2</p></td>
+					<td><p>3</p></td>
+					<td><p>4</p></td>
+					<td><p>5</p></td>
+					<td><p>6</p></td>
+					<td><p>7</p></td>
+					<td><p>8</p></td>
+					<td><p>9</p></td>
+					<td><p>10</p></td>
+					<td><p>11</p></td>
+					<td><p>12</p></td>
+				</tr>
 				<tr>	
 					<td><input type=text value="" id=1 size="5"></td>
 					<td><input type=text value="" id=2 size="5"></td>
@@ -78,24 +84,30 @@
 			<table>
 				<tr>
 					<td><p>模擬模式用的按鈕：</p></td>	
-					<td><input type = "button"  value = "下一步" onClick = "next()"></td>
-					<td><input type = "button"  value = "ㄧ次做完" onClick = "doAll()"></td>
-					<td><input type = "button"  value = "全部清除" onClick = "clearAll()"></td>
+					<td><input type = "button"  value = "下一步" onClick = "next()" id = "simNext"></td>
+					<td><input type = "button"  value = "ㄧ次做完" onClick = "doAll()" id = "simAll"></td>
+					<td><input type = "button"  value = "全部清除" onClick = "clearAll()" id = "simClear"></td>
 					
 				</tr>
 				<tr>
 					<td><p>測驗模式用的按鈕：</p></td>
-					<td><input type = "button"  value = "開始出題" onClick = "giveQuestion()"></td>
-					<td><input type = "button"  value = "確認答案" onClick = "checkAnswer()"></td>
-					<td><input type = "button"  value = "全部清除" onClick = "clearAll1()"></td>
+					<td><input type = "button"  value = "開始出題" onClick = "giveQuestion()" id = "testStart"></td>
+					<td><input type = "button"  value = "確認答案" onClick = "checkAnswer()" id = "testCheck"></td>
+					<td><input type = "button"  value = "全部清除" onClick = "clearAll1()" id = "testClear"></td>
 				</tr>
 			</table>
 
 		</form>
 		
 		<script>
-			var mode = -1;
-			var collision = -1;
+
+			// The function will be invoke, when you open the HTML file
+			window.onload = function (){
+				clearAll();
+			}
+
+			var mode = -1; // 0 is simulate mode  , 1 is test mode
+			var collision = -1; // 0 is linear  , 1 is double hash
 			var hashStep = 0;
 			var innerLocation1 = 0;// nest step use.
 			var data = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
@@ -125,6 +137,7 @@
 			var collisionCount = 1;
 			var answerCount = 0;
 			var rightAmount = 0;
+			var isFillData = -1;
 
 			function modeChoice(){
 				var form = document.getElementById("hashForm");
@@ -137,6 +150,7 @@
 						break;
 					}
 				}
+				process();
 			}
 			
 			function collisionChoice(){
@@ -155,6 +169,7 @@
 						break;
 					}
 				}
+				process();
 			}
 			
 			function modeClear(){
@@ -165,6 +180,7 @@
 				}
 				result.innerHTML = "";
 				mode = -1;
+				process();
 			}
 			
 			function collisionClear(){
@@ -175,6 +191,7 @@
 				}
 				result.innerHTML = "";
 				collision = -1;
+				process();
 			}
 			
 			function fillData1(){
@@ -203,6 +220,8 @@
 					result.innerHTML =  "資料為" + dataString1;	
 					document.getElementById("dataText").value = "";	
 					fillLocation = 13;
+					calculateHashAmount();
+					process();
 				}else{
 					result.innerHTML = "你沒有選擇模式或是Collision解決方式";
 				}
@@ -237,8 +256,10 @@
 								break;
 							}						
 						}
+						calculateHashAmount();
 						result.innerHTML =  "資料為" + dataString1;	
 						document.getElementById("dataText").value = "";
+						process();
 					}else{
 						var display = 0;
 						var dataString1 = "";
@@ -251,11 +272,14 @@
 								break;
 							}						
 						}
-						result.innerHTML =  "資料為" + dataString1 + "資料超過容納的量，不可再加入";	
+						result.innerHTML =  "資料為" + dataString1 + "資料超過容納的量，不可再加入";
+						calculateHashAmount();
 						document.getElementById("dataText").value = "";
+						process();
 					}
 				}else{
 					result.innerHTML = "你沒有選擇模式或是Collision解決方式";
+					process();
 				}
 			}
 			
@@ -272,6 +296,8 @@
 				}
 				result.innerHTML = "";
 				fillLocation = 0;
+				hashAmount = 0;
+				process();
 			}
 
 			function next(){
@@ -855,6 +881,65 @@
 				answerCount = 0;
 				rightAmount = 0;
 				rightSentence = "";
+			}
+
+			function init(){
+				document.getElementById("instruction").innerHTML = "";
+				document.getElementById("dataText").disabled=true;
+				document.getElementById("enterCheck").disabled=true;
+				document.getElementById("randomGenerate").disabled=true;
+				document.getElementById("clearData").disabled=true;
+				document.getElementById("simNext").disabled=true;
+				document.getElementById("simAll").disabled=true;
+				document.getElementById("simClear").disabled=true;
+				document.getElementById("testStart").disabled=true;
+				document.getElementById("testCheck").disabled=true;
+				document.getElementById("testClear").disabled=true;	
+			}
+
+			function process(){
+				init();
+				if(mode == 0){
+					
+					if(collision == 0 || collision == 1){
+						if(hashAmount != 0){
+							document.getElementById("simNext").disabled = false;
+							document.getElementById("simAll").disabled = false;
+							document.getElementById("simClear").disabled = false;
+							document.getElementById("instruction").innerHTML = "現在你已經輸入完資料了，你可以將滑鼠移到模擬模式用按鈕，可以按下一步(一次一步的做給你看)，或是一次做完鈕(將所有步驟一次全部做完)";
+						}else{
+							document.getElementById("dataText").disabled = false;
+							document.getElementById("enterCheck").disabled = false;
+							document.getElementById("randomGenerate").disabled = false;
+							document.getElementById("clearData").disabled = false;
+							document.getElementById("simNext").disabled = false;
+							document.getElementById("simAll").disabled = false;
+							document.getElementById("simClear").disabled = false;
+							document.getElementById("instruction").innerHTML = "現在你需要輸入要放入hash table的資料，你可以選擇自行輸入，若有多數請用,隔開，也可以按下隨機產生鈕。";
+
+						}
+					}else{
+						document.getElementById("instruction").innerHTML = "請選擇hash table當遇到collision時要採取的策略\n有linear probe(線性探測)或是double hash(雙重散列)";
+					}
+				}else if(mode == 1){ // test mode
+					
+					if(collision == 0 || collision == 1){
+						if(hashAmount != 0){
+							document.getElementById("testCheck").disabled = false;
+							document.getElementById("testClear").disabled = false;
+							document.getElementById("instruction").innerHTML = "題目已經出好，請依照hash table解決collision的方式將資料填入格子中，由左到右的13格格子，其索引值為0~12，輸入完答案後，請按下確認答案。";
+							
+						}else{
+							document.getElementById("testStart").disabled = false;
+							document.getElementById("instruction").innerHTML = "請將滑鼠移動至測驗模式用的按鈕旁的開始出題紐，進行出題的動作";
+						}
+						
+					}else{
+						document.getElementById("instruction").innerHTML = "請選擇hash table當遇到collision時要採取的策略\n有linear probe(線性探測)或是double hash(雙重散列)";
+					}
+				}else{
+					document.getElementById("instruction").innerHTML = "請選擇模式，模擬模式(可以模擬hash table擺放資料時的動作)、測驗模式(可以出題讓使用者練習)";
+				}
 			}
 			
 		</script>
