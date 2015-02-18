@@ -142,7 +142,9 @@
 			function modeChoice(){
 				var form = document.getElementById("hashForm");
 				var result = document.getElementById("mode");
-			
+				deleteData();
+				colorWhite();
+
 				for (var i = 0; i < form.modeChoice1.length; i++) {
 					if ( form.modeChoice1[i].checked ) {
 						result.innerHTML = "you selected " + form.modeChoice1[i].value;
@@ -156,7 +158,9 @@
 			function collisionChoice(){
 				var form = document.getElementById("hashForm");
 				var result = document.getElementById("collision");
-			
+				deleteData();
+				colorWhite();
+
 				for (var i = 0; i < form.collision1.length; i++) {
 					if ( form.collision1[i].checked ) {
 						collision = i;
@@ -180,6 +184,8 @@
 				}
 				result.innerHTML = "";
 				mode = -1;
+				deleteData();
+				colorWhite();
 				process();
 			}
 			
@@ -191,6 +197,8 @@
 				}
 				result.innerHTML = "";
 				collision = -1;
+				deleteData();
+				colorWhite();
 				process();
 			}
 			
@@ -290,13 +298,25 @@
 				var count = 0;
 				while(count <= amount){
 					data[count] = -1;
-					count = count + 1;
+					
 					hashDataCheck[count] = -1;
 					hashData[count] = -1;
+					count = count + 1;
 				}
 				result.innerHTML = "";
 				fillLocation = 0;
 				hashAmount = 0;
+				isFillData = -1;
+				innerLocation1 = 0;
+				hashStep = 0;
+				linearString = "";
+				document.getElementById("hashTableArea").innerHTML = "";
+				putDataCount = 1;		
+				hashLocation = 0;
+				
+				colorWhite();
+				collisionCount = 1;
+				doubleHashString = "";
 				process();
 			}
 
